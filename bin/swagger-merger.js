@@ -20,6 +20,7 @@ if (require.main === module) {
       /^.+\.(json|yaml|yml)$/gi, null)
     .option('-o, --output <*.json|yaml|yml file>', 'output a merged JSON/YAML swagger file, default is `swagger.*`',
       /^.+\.(json|yaml|yml)$/gi, null)
+    .option('-t, --token <string>', 'auth token that gets added to header', null, null)
     .option('-c, --compact', 'compact JSON/YAML format string', null, null)
     .option('--debug', 'debug mode, such as print error tracks', null, null)
     .action((options) => {
@@ -31,7 +32,8 @@ if (require.main === module) {
       merger({
         input: options.input || '',
         output: options.output || '',
-        compact: options.compact
+        compact: options.compact,
+        token: program.opts().token || ''
       }).catch(e => {
         if (options.debug) {
           console.error(e)
